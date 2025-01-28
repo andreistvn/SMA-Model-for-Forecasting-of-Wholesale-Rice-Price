@@ -45,25 +45,25 @@ def perform_arima_and_plot(rice_type):
         # plotting
         plt.figure(figsize=(10, 6))
 
-        # Plot training data (2010-2020)
+        # plot training data (2010-2020)
         plt.plot(train.index, train, label=f'Training Data (2010-2020)', color='blue', marker='o')
 
-        # Plot historical data (2010-2023), combine training data and actual historical data for this period
+        # plot historical data (2010-2023), combine training data and actual historical data for this period
         historical_data = pd.concat([train, df[rice_type][11:]])  # Concatenate the forecasted historical data
         plt.plot(historical_data.index, historical_data, label=f'Historical Data (2010-2023)', color='green', linestyle='--')
 
-        # Plot forecasted data (2021-2023)
+        # plot forecasted data (2021-2023)
         plt.plot(forecast_years, forecast, label=f'Forecast (2021-2023)', color='red', marker='o')
 
-        # Add labels and title
+        # labels and title
         plt.xlabel('Year')
         plt.ylabel('Price')
         plt.title(f'{rice_type} Price Prediction (2010-2023)')
 
-        # Add a legend
+        # legend
         plt.legend()
 
-        # Display the plot
+        # display the plot
         plt.grid(True)
         plt.show()
 
