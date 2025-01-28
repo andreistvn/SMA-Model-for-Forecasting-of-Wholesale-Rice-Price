@@ -14,23 +14,23 @@ data = {
 df = pd.DataFrame(data)
 df.set_index("Year", inplace=True)
 
-# function sa pangcalculate ng SMA + forecast
+# function for calculating SMA and forecast
 def calculate_sma_and_forecast(data, window=3, forecast_years=2):
     sma = data.rolling(window=window).mean()
     
-    # Initialize the forecast series with the last SMA value
+    # initialize the forecast series with the last SMA value
     forecast_index = range(data.index[-1] + 1, data.index[-1] + 1 + forecast_years)
     forecast = pd.Series(index=forecast_index, dtype=float)
     
-    # Calculate the forecast iteratively
+    # calculate the forecast iteratively
     for year in forecast_index:
-        # Get the last `window` years of SMA data
+        # get the last window years of SMA data
         last_sma_values = sma.iloc[-window:]
-        # Calculate the SMA for the forecasted year
+        # calculate the SMA for the forecasted year
         forecast_sma = last_sma_values.mean()
-        # Append the forecasted SMA to the SMA series
+        # concatenate the forecasted SMA to the SMA series
         sma = pd.concat([sma, pd.Series([forecast_sma], index=[year])])
-        # Store the forecasted value
+        # store the forecasted value
         forecast[year] = forecast_sma
     
     return sma
